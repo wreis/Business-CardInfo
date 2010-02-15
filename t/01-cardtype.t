@@ -30,7 +30,7 @@ is($bc->type, 'Maestro');
 $bc->number('5100000000005460');
 is($bc->type, 'MasterCard');
 $bc->number('4508750000005461');
-is($bc->type, 'Visa Electron');
+is($bc->type, 'Visa Debit');
 $bc->number('6767000000005462');
 is($bc->type, 'Solo');
 $bc->number('4001658035486204');

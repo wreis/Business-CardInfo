@@ -2,7 +2,7 @@ package Business::CardInfo;
 use Moose;
 use Moose::Util::TypeConstraints;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 subtype 'CardNumber'
   => as 'Int'
@@ -42,20 +42,33 @@ sub _build_type {
   my $self = shift;
   my $number = $self->number;
   #my @grp = (substr($number,0,1), substr($number,0,4),substr($number,0,6));
-  return "Visa Electron" if $self->_search([qw/417500 4917 4913 4508 4844/]);
+  return "Visa Debit" if $self->_search([
+    400626, 408547..408549, 409400 .. 409402, 412285,412286, 413733 .. 413737,
+    413787 .. 413787, 418760, 419176 .. 412279, 419772, 420672, 421592 .. 421594, 
+    422793, 423769, 431072, 444001, 444005 .. 444008, 446200 .. 446211,
+    446213 .. 446254, 446257 .. 446272,446274 .. 446283, 446286, 446294, 450875, 
+    453978, 453979, 454313, 454432 .. 454435, 454742, 456725 .. 456745, 
+    465830 .. 465879, 465901 .. 465950,475110 .. 475159, 475710 .. 475759, 
+    476220 .. 476269, 476340 .. 476389
+  ]);
+  return "Visa Electron" if $self->_search([
+    417500, 400115, 400837 .. 400839, 412921 .. 412923, 417935, 419740, 
+    419741, 419773 .. 419776, 424519, 424962, 424963, 444000, 484406 .. 484408,
+    484411 .. 484426, 484428 .. 484455, 491730 .. 491759, 491880, 4917, 4913,
+    4508, 4844]);
   return "Visa" if $self->_search([qw/4/]);
   return "MasterCard" if $self->_search([51 .. 55]);
-  if($self->country eq 'UK') {
-    return "Diners Club" if $self->_search([36]);
-    return "MasterCard" if $self->_search([54,55]);
-  }
-  return "Maestro"
-    if $self->_search([qw/5020 5038 6304 6759 6761 4903 4905 4911 4936 564182 633110 6333 5033 5868/]);
   return "Solo" if $self->_search([qw/6334 6767/]);
-  return "AMEX" if $self->_search([qw/34 37/]);;
-  return "Diners Club" if $self->_search([300 .. 305,2014,2149,46,55]);
-  return "Discover" if $self->_search([6011,65]);
-  return "JCB" if $self->_search([qw/1800 2131 35/]);
+  return "Maestro"
+    if $self->_search([
+      6759, 500 .. 509,5600 .. 5899, 60 .. 69, 490303, 493698, 493699,
+      633302 .. 633349, 
+    ]);
+  return "AMEX" if $self->_search([qw/34 37/]);
+  return "Diners Club" if $self->_search([2014,2149,46,55,3600]);
+  return "Discover" if $self->_search([622126 .. 622925,6011, 644 .. 649, 65]);
+  return "JCB" if $self->_search([3528 .. 3589]);
+  return "Laser" if $self->_search([qw/6304 6706 6771 6709/]);
   return "Unknown";
 }
 
