@@ -2,7 +2,7 @@ package Business::CardInfo;
 use Moose;
 use Moose::Util::TypeConstraints;
 
-our $VERSION = '0.03';
+our $VERSION = '0.05';
 
 subtype 'CardNumber'
   => as 'Int'
@@ -49,7 +49,8 @@ sub _build_type {
     446213 .. 446254, 446257 .. 446272,446274 .. 446283, 446286, 446294, 450875, 
     453978, 453979, 454313, 454432 .. 454435, 454742, 456725 .. 456745, 
     465830 .. 465879, 465901 .. 465950,475110 .. 475159, 475710 .. 475759, 
-    476220 .. 476269, 476340 .. 476389
+    476220 .. 476269, 476340 .. 476389, 484409 .. 484410, 484427, 
+    490960 .. 490979, 492181 .. 82, 498824, 499902
   ]);
   return "Visa Electron" if $self->_search([
     417500, 400115, 400837 .. 400839, 412921 .. 412923, 417935, 419740, 
@@ -60,10 +61,9 @@ sub _build_type {
   return "MasterCard" if $self->_search([51 .. 55]);
   return "Solo" if $self->_search([qw/6334 6767/]);
   return "Maestro"
-    if $self->_search([
-      6759, 500 .. 509,5600 .. 5899, 60 .. 69, 490303, 493698, 493699,
-      633302 .. 633349, 
-    ]);
+    if $self->_search([ 6759, 490303, 493698, 493699, 633302 .. 633349 ]);
+  return "International Maestro"
+    if $self->_search([ 500 .. 509,5600 .. 5899, 60 .. 69 ]);
   return "AMEX" if $self->_search([qw/34 37/]);
   return "Diners Club" if $self->_search([2014,2149,46,55,3600]);
   return "Discover" if $self->_search([622126 .. 622925,6011, 644 .. 649, 65]);
@@ -119,10 +119,12 @@ Business::CardInfo - Get/Validate data from credit & debit cards
 Possible return values are:
 
   Visa Electron
+  Visa Debit
   Visa
   MasterCard
   Diners Club
   Maestro
+  International Maestro
   Solo
   AMEX
   Discover

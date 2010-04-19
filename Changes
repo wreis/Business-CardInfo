@@ -1,6 +1,9 @@
 Revision history for Business-CardInfo
 
-0.03    Breaking change - detects VISA Debit now. extensive BIN update
+0.05    BIN update for Visa Debit
+
+0.04    *Back compat warning* -
+- Detects and returns 'Visa Debit' and 'International Maestro'
 
 0.02    Support more international Maestro numbers.
 

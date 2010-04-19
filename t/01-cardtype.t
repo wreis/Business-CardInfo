@@ -13,10 +13,10 @@ $bc->number('6334 9000 0000 0005');
 is($bc->type,'Solo');
 
 $bc->number('5641 8200 0000 0005');
-is($bc->type,'Maestro');
+is($bc->type,'International Maestro');
 
 $bc->number('5868 2416 0825 5333 38');
-is($bc->type,'Maestro');
+is($bc->type,'International Maestro');
 $bc->number('3742 000000 00004');
 is($bc->type,'AMEX');
 $bc->number('3569 9900 0000 0009');
