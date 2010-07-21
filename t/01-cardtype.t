@@ -39,3 +39,5 @@ $bc->number('340000432128428');
 is($bc->type, 'AMEX');
 $bc->number('3528008035486208');
 is($bc->type, 'JCB');
+$bc->number('4921818035486201');
+is($bc->type, 'Visa Debit');

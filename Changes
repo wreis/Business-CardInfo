@@ -1,5 +1,9 @@
 Revision history for Business-CardInfo
 
+0.07    BIN update + New card detection for 'Mastercard Debit'.
+
+0.06    Bugfix + BIN update
+
 0.05    BIN update for Visa Debit
 
 0.04    *Back compat warning* -
