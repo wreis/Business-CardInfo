@@ -1,5 +1,6 @@
 package Business::CardInfo;
 use Moose;
+use MooseX::StrictConstructor;
 use Moose::Util::TypeConstraints;
 
 our $VERSION = '0.12';
@@ -35,8 +36,9 @@ has 'number' => (
 
 has 'type' => (
   isa => 'Str',
-  is  => 'rw',
+  is  => 'ro',
   lazy_build => 1,
+  init_arg => undef,
 );
 
 sub _build_type {
