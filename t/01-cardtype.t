@@ -3,6 +3,9 @@
 use Test::More qw(no_plan);
 use Business::CardInfo;
 
+eval { Business::CardInfo->new(number => '4929 0000 0000 6', type => 'DUMMY') };
+like($@, qr/Found unknown/);
+
 my $bc = Business::CardInfo->new(number => '4929 0000 0000 6');
 is($bc->type,'Visa');
 $bc->number('5404 0000 0000 0001');
